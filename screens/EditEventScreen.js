@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Text, Switch, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const EventForm = ({ addEvent }) => {
-  const [eventName, setEventName] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
-  const [eventDate, setEventDate] = useState(new Date());
-  const [reminderEnabled, setReminderEnabled] = useState(false);
+const EditEventScreen = ({ route, navigation, editEvent }) => {
+  const { eventIndex, eventData } = route.params;
+  const [eventName, setEventName] = useState(eventData.name);
+  const [eventDescription, setEventDescription] = useState(eventData.description);
+  const [eventDate, setEventDate] = useState(new Date(eventData.date));
+  const [reminderEnabled, setReminderEnabled] = useState(eventData.reminder);
   const [showDatePicker, setShowDatePicker] = useState(false);
+
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || eventDate;
@@ -19,19 +21,16 @@ const EventForm = ({ addEvent }) => {
     setShowDatePicker(true);
   };
 
-  const handleSaveEvent = () => {
-    const event = {
+  const handleEditEvent = () => {
+    const newEvent = {
       name: eventName,
       description: eventDescription,
       date: eventDate,
       reminder: reminderEnabled
     };
 
-    addEvent(event);
-    setEventName('');
-    setEventDescription('');
-    setEventDate(new Date());
-    setReminderEnabled(false);
+    editEvent(eventIndex, newEvent);
+    navigation.goBack();
   };
 
   return (
@@ -64,9 +63,9 @@ const EventForm = ({ addEvent }) => {
           onValueChange={value => setReminderEnabled(value)}
         />
       </View>
-      <Button title="Save" onPress={handleSaveEvent} />
+      <Button title="Save" onPress={handleEditEvent} />
     </View>
   );
 };
 
-export default EventForm;
+export default EditEventScreen;

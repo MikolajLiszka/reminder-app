@@ -1,13 +1,19 @@
 import React from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
+const PostsScreen = ({ events, navigation, deleteEvent }) => {
+  return (
+    <View>
+      <Text>Lista wiadomości</Text>
+      {events.map((event, index) => (
+        <View key={index}>
+          <Text>{event.name}</Text>
+          <Button title="Edytuj" onPress={() => navigation.navigate('Edit', { eventIndex: index, eventData: { ...event, date: event.date.getTime() } })} />
+          <Button title="Usuń" onPress={() => deleteEvent(index)} />
+        </View>
+      ))}
+    </View>
+  );
+};
 
-const PostsScreen = ({ navigation }) => {
-    return (
-      <View>
-        <Text>Lista wiadomości</Text>
-      </View>
-    );
-  };
-
-  export default PostsScreen;
+export default PostsScreen;
