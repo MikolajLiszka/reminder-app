@@ -7,6 +7,7 @@ import PostsScreen from './screens/post-screen';
 import EditEventScreen from './screens/EditEventScreen';
 import SplashScreen from './screens/SplashScreen';
 import AboutScreen from './screens/AboutScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +54,7 @@ const App = () => {
           {props => <EditEventScreen {...props} editEvent={editEvent} />}
         </Stack.Screen>
         <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

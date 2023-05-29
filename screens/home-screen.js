@@ -14,6 +14,12 @@ const HomeScreen = ({ navigation, addEvent }) => {
         onPress={() => navigation.navigate('About')}
       />
       <EventForm addEvent={addEvent} />
+      
+      <Button
+        title="Ustawienia"
+        onPress={() => navigation.navigate('Settings')}
+/>
+
     </View>
   );
 };
