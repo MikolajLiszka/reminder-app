@@ -9,6 +9,10 @@ const HomeScreen = ({ navigation, addEvent }) => {
         title="Przejdź do listy wiadomości"
         onPress={() => navigation.navigate('Posts')}
       />
+      <Button
+        title="O aplikacji"
+        onPress={() => navigation.navigate('About')}
+      />
       <EventForm addEvent={addEvent} />
     </View>
   );
