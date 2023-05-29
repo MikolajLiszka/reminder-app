@@ -1,63 +1,79 @@
 import React, { useState } from 'react';
-import { View, TextInput, DatePicker, Switch, Button, Text} from 'react-native';
-
+import { View, TextInput, Switch, Button, Text, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const EventForm = () => {
-    const [eventName, setEventName] = useState('');
-    const [eventDescription, setEventDescription] = useState('');
-    const [eventDate, setEventDate] = useState(new Date());
-    const [reminderEnabled, setReminderEnabled] = useState(false);
-  
-    const handleSaveEvent = () => {
-        // Twój kod do zapisu wydarzenia
+  const [eventName, setEventName] = useState('');
+  const [eventDescription, setEventDescription] = useState('');
+  const [eventDate, setEventDate] = useState(new Date());
+  const [reminderEnabled, setReminderEnabled] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-        // Przykładowe operacje:
-  
-        // Wyświetl nazwę wydarzenia
-        console.log('Nazwa wydarzenia:', eventName);
-
-        // Wyświetl opis wydarzenia
-        console.log('Opis wydarzenia:', eventDescription);
-
-        // Wyświetl datę wydarzenia
-        console.log('Data wydarzenia:', eventDate);
-
-        // Wyświetl status przypomnienia
-        console.log('Przypomnienie:', reminderEnabled ? 'Włączone' : 'Wyłączone');
-
-        // Dodatkowa logika zapisu do bazy danych, serwera, itp.
-    };
-  
-    return (
-      <View>
-        <TextInput
-        //   style={styles.input}
-          placeholder="Nazwa wydarzenia"
-          value={eventName}
-          onChangeText={text => setEventName(text)}
-        />
-        <TextInput
-        //   style={styles.input}
-          placeholder="Opis wydarzenia"
-          value={eventDescription}
-          onChangeText={text => setEventDescription(text)}
-        />
-        <DatePicker
-        //   style={styles.datePicker}
-          date={eventDate}
-          onDateChange={date => setEventDate(date)}
-        />
-        <View>
-          <Text>Przypomnienie</Text>
-          <Switch
-            value={reminderEnabled}
-            onValueChange={value => setReminderEnabled(value)}
-          />
-        </View>
-        <Button title="Zapisz" onPress={handleSaveEvent} />
-      </View>
-    );
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || eventDate;
+    setEventDate(currentDate);
+    setShowDatePicker(Platform.OS === 'ios');
   };
 
-export default EventForm;
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const handleSaveEvent = () => {
+    // Your code to save event goes here
+
+    // Sample operations:
+    
+    // Display event name
+    console.log('Event name:', eventName);
+
+    // Display event description
+    console.log('Event description:', eventDescription);
+
+    // Display event date
+    console.log('Event date:', eventDate);
+
+    // Display reminder status
+    console.log('Reminder:', reminderEnabled ? 'Enabled' : 'Disabled');
+
+    // Additional saving logic to database, server, etc.
+  };
   
+  return (
+    <View>
+      <TextInput
+      // style={styles.input}
+        placeholder="Event name"
+        value={eventName}
+        onChangeText={text => setEventName(text)}
+      />
+      <TextInput
+      // style={styles.input}
+        placeholder="Event description"
+        value={eventDescription}
+        onChangeText={text => setEventDescription(text)}
+      />
+      <Button onPress={showDatepicker} title="Select date!" />
+      {showDatePicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={eventDate}
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
+      <View>
+        <Text>Reminder</Text>
+        <Switch
+          value={reminderEnabled}
+          onValueChange={value => setReminderEnabled(value)}
+        />
+      </View>
+      <Button title="Save" onPress={handleSaveEvent} />
+    </View>
+  );
+};
+
+export default EventForm;
