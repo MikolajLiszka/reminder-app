@@ -20,8 +20,9 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Zmienić czas na ile długo powinien pokazywać się ekran startowy
+    }, 5000); // Zmienić czas na ile długo powinien pokazywać się ekran startowy
     getCalendarPermission();
+    
   }, []);
 
   if (isLoading) {
