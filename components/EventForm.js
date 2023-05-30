@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, Switch, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { render, fireEvent } from '@testing-library/react-native';
 const EventForm = ({ addEvent }) => {
   const [eventName, setEventName] = useState('');
   const [eventDescription, setEventDescription] = useState('');
@@ -37,16 +37,16 @@ const EventForm = ({ addEvent }) => {
   return (
     <View>
       <TextInput
-        placeholder="Event name"
+        placeholder="Nazwa wydarzenia"
         value={eventName}
         onChangeText={text => setEventName(text)}
       />
       <TextInput
-        placeholder="Event description"
+        placeholder="Opis wydarzenia"
         value={eventDescription}
         onChangeText={text => setEventDescription(text)}
       />
-      <Button onPress={showDatepicker} title="Select date!" />
+      <Button onPress={showDatepicker} title="Wybierz date!" />
       {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -58,13 +58,13 @@ const EventForm = ({ addEvent }) => {
         />
       )}
       <View>
-        <Text>Reminder</Text>
+        <Text>Powiadom mnie</Text>
         <Switch
           value={reminderEnabled}
           onValueChange={value => setReminderEnabled(value)}
         />
       </View>
-      <Button title="Save" onPress={handleSaveEvent} />
+      <Button title="Dodaj" onPress={handleSaveEvent} />
     </View>
   );
 };
