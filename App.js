@@ -8,6 +8,7 @@ import EditEventScreen from './screens/EditEventScreen';
 import SplashScreen from './screens/SplashScreen';
 import AboutScreen from './screens/AboutScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import * as Permissions from 'expo-permissions';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,16 +16,23 @@ const App = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 2000); // Zmienić czas na ile długo powinien pokazywać się ekran startowy
+    getCalendarPermission();
   }, []);
 
   if (isLoading) {
     return <SplashScreen />;
   }
-
+  async function getCalendarPermission() {
+    const { status } = await Permissions.askAsync(Permissions.CALENDAR);
+    if (status !== 'granted') {
+      alert('Przykro mi, potrzebujemy uprawnień do kalendarza, aby to działało!');
+    }
+  }
   const addEvent = (event) => {
     setEvents([...events, event]);
   };

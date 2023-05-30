@@ -15,13 +15,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "Ta aplikacja wymaga dostępu do twojego kalendarza."
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "permissions": ["READ_CALENDAR", "WRITE_CALENDAR"]
       }
+    
+      }
+    
     },
     "web": {
       "favicon": "./assets/favicon.png"
