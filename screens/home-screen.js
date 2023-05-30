@@ -6,7 +6,7 @@ const HomeScreen = ({ navigation, addEvent }) => {
   return (
     <View>
       <Button
-        title="Przejdź do listy wiadomości"
+        title="Przejdź do listy wydarzeń"
         onPress={() => navigation.navigate('Posts')}
       />
       <Button
